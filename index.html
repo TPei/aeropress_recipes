@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3.4 Simple Page with Bulma</title>
+  <script src="https://unpkg.com/vue@3.4.0/dist/vue.global.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    #app {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <section class="section">
+    <div class="container" id="app">
+      <h1 class="title">{{ message }}</h1>
+      <div class="field">
+        <div class="control">
+          <input class="input" v-model="message" placeholder="Edit me">
+        </div>
+      </div>
+      <div class="content">
+        <p class="subtitle">Message is: {{ message }}</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          message: 'Hello Vue 3.4!'
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
