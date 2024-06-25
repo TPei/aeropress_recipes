@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue 3.4 Simple Page with Bulma</title>
+  <title>Aeropress Recipe Generator</title>
   <script src="https://unpkg.com/vue@3.4.0/dist/vue.global.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <script src="database.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -21,19 +22,29 @@
       text-align: center;
       margin-bottom: 20px;
     }
+    .content {
+      text-align: center;
+    }
+    .button {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <section class="section">
     <div class="container" id="app">
-      <h1 class="title">{{ message }}</h1>
-      <div class="field">
-        <div class="control">
-          <input class="input" v-model="message" placeholder="Edit me">
-        </div>
-      </div>
+      <h1 class="title">Aeropress Recipe Generator</h1>
       <div class="content">
-        <p class="subtitle">Message is: {{ message }}</p>
+        <p><strong>Recipe:</strong> {{ recipe }}</p>
+        <p><strong>Brew Temperature:</strong> {{ brewTemperature }}</p>
+        <p><strong>Grind Size and Brew Time:</strong> {{ grindSizeAndBrewTime }}</p>
+        <p><strong>Brew Technique:</strong> {{ brewTechnique }}</p>
+        <p><strong>Stirring Technique:</strong> {{ stirringTechnique }}</p>
+      </div>
+      <div class="field is-grouped is-grouped-centered">
+        <p class="control">
+          <button class="button is-primary" @click="generateRecipe">Generate Recipe</button>
+        </p>
       </div>
     </div>
   </section>
@@ -44,8 +55,25 @@
     createApp({
       data() {
         return {
-          message: 'Hello Vue 3.4!'
+          database: database,
+          recipe: '',
+          brewTemperature: '',
+          grindSizeAndBrewTime: '',
+          brewTechnique: '',
+          stirringTechnique: ''
         };
+      },
+      methods: {
+        getRandomElement(array) {
+          return array[Math.floor(Math.random() * array.length)];
+        },
+        generateRecipe() {
+          this.recipe = this.getRandomElement(this.database.coffeeToWater);
+          this.brewTemperature = this.getRandomElement(this.database.brewTemperature);
+          this.grindSizeAndBrewTime = this.getRandomElement(this.database.grindSizeAndBrewTime);
+          this.brewTechnique = this.getRandomElement(this.database.brewTechnique);
+          this.stirringTechnique = this.getRandomElement(this.database.stirringTechnique);
+        }
       }
     }).mount('#app');
   </script>
