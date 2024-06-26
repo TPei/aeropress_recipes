@@ -14,6 +14,11 @@
       padding: 0;
       background-color: #f5f5f5;
     }
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
     #app {
       max-width: 600px;
       margin: 0 auto;
@@ -22,6 +27,11 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+
     .title {
       text-align: center;
       margin-bottom: 20px;
@@ -71,6 +81,11 @@
         margin-bottom: 5px;
       }
     }
+    #footer {
+      background-color: rgb(161, 161, 161);
+      text-align: center;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
@@ -117,6 +132,14 @@
       </div>
     </div>
   </section>
+  <div id="footer">
+    <p class="is-size-6">
+      The Aeropress Recipe Creator<br />
+      Inspired by <a href="https://web.archive.org/web/20171208104650/https://jimseven.com/2017/12/06/coffee-brewing-dice/">James Hoffman's recipe dice</a><br />
+      Made with ☕️ by <a href="https://github.com/tpei/aeropress_recipes">tpei</a><br />
+      Icon by <a href="https://www.flaticon.com/authors/lapiyee">Lapiyee</a>
+    </p>
+  </div>
 
   <script>
     const { createApp } = Vue;
