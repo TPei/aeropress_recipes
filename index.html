@@ -6,13 +6,15 @@
   <title>Aeropress Recipe Generator</title>
   <script src="https://unpkg.com/vue@3.4.0/dist/vue.global.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+
 
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <script src="database.js"></script>
+  <script src="random_database.js"></script>
   <style>
     html, body {
       height: 100%;
@@ -100,6 +102,7 @@
       <!--<img src="aeropress-icon.webp" alt="Aeropress Icon" class="icon">-->
       <a id="logo-link" href="./index.html"><img src="aeropress.png" alt="Aeropress Icon" class="icon" ></a>
       <h1 class="title">Aeropress Recipe Generator</h1>
+
       <div class="content">
         <div v-if="loading" class="loading">
           <img src="loading_kettle.gif" alt="Loading"><br />
@@ -133,7 +136,7 @@
       </div>
       <div class="field is-grouped is-grouped-centered" v-if="!loading">
         <p class="control">
-          <button class="button is-primary" @click="generateRecipe" :disabled="loading">Generate Recipe</button>
+          <button class="button is-primary" @click="generateRecipe" :disabled="loading"><i class="ti ti-arrows-shuffle"></i>&nbsp; Generate Random Recipe</button>
         </p>
       </div>
     </div>
