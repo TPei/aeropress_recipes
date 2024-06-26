@@ -98,7 +98,7 @@
   <section class="section">
     <div class="container" id="app">
       <!--<img src="aeropress-icon.webp" alt="Aeropress Icon" class="icon">-->
-      <img src="aeropress.png" alt="Aeropress Icon" class="icon">
+      <a id="logo-link" href="./index.html"><img src="aeropress.png" alt="Aeropress Icon" class="icon" ></a>
       <h1 class="title">Aeropress Recipe Generator</h1>
       <div class="content">
         <div v-if="loading" class="loading">
@@ -184,6 +184,19 @@
         }
       }
     }).mount('#app');
+
+    document.getElementById('logo-link').addEventListener('click', function(event) {
+      event.preventDefault();
+      window.location.href = this.href;
+    });
+
+    self.addEventListener('fetch', event => {
+      event.respondWith(
+        caches.match(event.request).then(response => {
+            return response || fetch(event.request);
+        })
+      );
+    });
   </script>
 </body>
 </html>
