@@ -18,10 +18,15 @@
       max-width: 600px;
       margin: 0 auto;
       padding: 20px;
+      background-color: #ffffff; /* White background for the content area */
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     .title {
       text-align: center;
       margin-bottom: 20px;
+      font-size: 2rem;
+      color: #333;
     }
     .content {
       text-align: center;
@@ -38,12 +43,23 @@
     .recipe-part {
       display: flex;
       align-items: center;
+      justify-content: center;
       margin-bottom: 10px;
     }
     .recipe-part img {
       width: 40px;
       height: 40px;
       margin-right: 10px;
+    }
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+    }
+    .loading img {
+      max-width: 100%;
+      max-height: 100%;
     }
     @media (max-width: 600px) {
       .recipe-part {
@@ -60,10 +76,15 @@
 <body>
   <section class="section">
     <div class="container" id="app">
-      <img src="aeropress-icon.webp" alt="Aeropress Icon" class="icon">
+      <!--<img src="aeropress-icon.webp" alt="Aeropress Icon" class="icon">-->
+      <img src="aeropress.png" alt="Aeropress Icon" class="icon">
       <h1 class="title">Aeropress Recipe Generator</h1>
       <div class="content">
-        <div v-if="allVariablesSet">
+        <div v-if="loading" class="loading">
+          <img src="loading_kettle.gif" alt="Loading"><br />
+        </div>
+        <p v-if="loading">Hold tight, while we're brewing your fresh recipe for you!</p>
+        <div v-if="!loading && allVariablesSet">
           <div class="recipe-part">
             <img src="coffeebag.webp" alt="Coffee Bag Icon">
             <p><strong>Recipe:</strong> {{ recipe }}</p>
@@ -85,13 +106,13 @@
             <p><strong>Stirring Technique:</strong> {{ stirringTechnique }}</p>
           </div>
         </div>
-        <p v-if="!allVariablesSet">
+        <p v-if="!loading && !allVariablesSet">
           Welcome coffee lover! Ready to brew the perfect cup with your Aeropress? Click "Generate Recipe" to get started on a delightful coffee adventure!
         </p>
       </div>
-      <div class="field is-grouped is-grouped-centered">
+      <div class="field is-grouped is-grouped-centered" v-if="!loading">
         <p class="control">
-          <button class="button is-primary" @click="generateRecipe">Generate Recipe</button>
+          <button class="button is-primary" @click="generateRecipe" :disabled="loading">Generate Recipe</button>
         </p>
       </div>
     </div>
@@ -108,7 +129,8 @@
           brewTemperature: '',
           grindSizeAndBrewTime: '',
           brewTechnique: '',
-          stirringTechnique: ''
+          stirringTechnique: '',
+          loading: false
         };
       },
       computed: {
@@ -121,11 +143,15 @@
           return array[Math.floor(Math.random() * array.length)];
         },
         generateRecipe() {
-          this.recipe = this.getRandomElement(this.database.coffeeToWater);
-          this.brewTemperature = this.getRandomElement(this.database.brewTemperature);
-          this.grindSizeAndBrewTime = this.getRandomElement(this.database.grindSizeAndBrewTime);
-          this.brewTechnique = this.getRandomElement(this.database.brewTechnique);
-          this.stirringTechnique = this.getRandomElement(this.database.stirringTechnique);
+          this.loading = true;
+          setTimeout(() => {
+            this.recipe = this.getRandomElement(this.database.coffeeToWater);
+            this.brewTemperature = this.getRandomElement(this.database.brewTemperature);
+            this.grindSizeAndBrewTime = this.getRandomElement(this.database.grindSizeAndBrewTime);
+            this.brewTechnique = this.getRandomElement(this.database.brewTechnique);
+            this.stirringTechnique = this.getRandomElement(this.database.stirringTechnique);
+            this.loading = false;
+          }, 1000); // Simulate loading time
         }
       }
     }).mount('#app');
